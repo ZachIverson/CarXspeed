@@ -1,0 +1,72 @@
+# Game-menu branch - basic menu functionality
+
+import pygame
+import sys
+
+pygame.init()
+
+WIDTH, HEIGHT = 480, 640
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("CarXspeed")
+
+clock = pygame.time.Clock()
+
+# Colors and fonts
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+font = pygame.font.SysFont(None, 40)
+
+# Load player car images
+CAR_WIDTH, CAR_HEIGHT = 80, 130
+BIG_CAR_WIDTH, BIG_CAR_HEIGHT = 90, 140
+LANE_WIDTH = WIDTH // 3
+
+player_car_imgs = [
+    pygame.transform.scale(pygame.image.load("assets/player1.png"), (CAR_WIDTH, CAR_HEIGHT)),
+    pygame.transform.scale(pygame.image.load("assets/player2.png"), (CAR_WIDTH, CAR_HEIGHT)),
+    pygame.transform.scale(pygame.image.load("assets/player3.png"), (BIG_CAR_WIDTH, BIG_CAR_HEIGHT)),
+]
+
+def draw_text(text, size, x, y, color=WHITE):
+    font_obj = pygame.font.SysFont(None, size)
+    text_surface = font_obj.render(text, True, color)
+    rect = text_surface.get_rect(center=(x, y))
+    screen.blit(text_surface, rect)
+
+def show_menu():
+    while True:
+        screen.fill(BLACK)
+        draw_text("CarXspeed", 60, WIDTH // 2, 80)
+        draw_text("Choose Your Car:", 40, WIDTH // 2, 140)
+
+        for i, car_img in enumerate(player_car_imgs):
+            rect = car_img.get_rect(center=(LANE_WIDTH * i + LANE_WIDTH // 2, 250))
+            screen.blit(car_img, rect)
+
+        draw_text("Press 1, 2, or 3 to Select", 30, WIDTH // 2, 420)
+        draw_text("Press ESC to Exit", 30, WIDTH // 2, 460)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+                elif event.key == pygame.K_1:
+                    return 0
+                elif event.key == pygame.K_2:
+                    return 1
+                elif event.key == pygame.K_3:
+                    return 2
+
+        pygame.display.update()
+        clock.tick(60)
+
+def main():
+    player_choice = show_menu()
+    print(f"Selected Car: {player_choice}")  # Placeholder action
+
+if __name__ == "__main__":
+    main()
