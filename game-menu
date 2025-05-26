@@ -1,39 +1,5 @@
-# Game-menu branch - basic menu functionality
-
-import pygame
-import sys
-
-pygame.init()
-
-WIDTH, HEIGHT = 480, 640
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("CarXspeed")
-
-clock = pygame.time.Clock()
-
-# Colors and fonts
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-font = pygame.font.SysFont(None, 40)
-
-# Load player car images
-CAR_WIDTH, CAR_HEIGHT = 80, 130
-BIG_CAR_WIDTH, BIG_CAR_HEIGHT = 90, 140
-LANE_WIDTH = WIDTH // 3
-
-player_car_imgs = [
-    pygame.transform.scale(pygame.image.load("assets/player1.png"), (CAR_WIDTH, CAR_HEIGHT)),
-    pygame.transform.scale(pygame.image.load("assets/player2.png"), (CAR_WIDTH, CAR_HEIGHT)),
-    pygame.transform.scale(pygame.image.load("assets/player3.png"), (BIG_CAR_WIDTH, BIG_CAR_HEIGHT)),
-]
-
-def draw_text(text, size, x, y, color=WHITE):
-    font_obj = pygame.font.SysFont(None, size)
-    text_surface = font_obj.render(text, True, color)
-    rect = text_surface.get_rect(center=(x, y))
-    screen.blit(text_surface, rect)
-
 def show_menu():
+    selected = 0
     while True:
         screen.fill(BLACK)
         draw_text("CarXspeed", 60, WIDTH // 2, 80)
@@ -63,10 +29,3 @@ def show_menu():
 
         pygame.display.update()
         clock.tick(60)
-
-def main():
-    player_choice = show_menu()
-    print(f"Selected Car: {player_choice}")  # Placeholder action
-
-if __name__ == "__main__":
-    main()
