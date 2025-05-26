@@ -1,0 +1,8 @@
+def draw_game_over_animation():
+    overlay = pygame.Surface((WIDTH, HEIGHT))
+    overlay.set_alpha(200)  # Makes it semi-transparent
+    overlay.fill(BLACK)
+    screen.blit(overlay, (0, 0))
+    draw_text("GAME OVER", 60, WIDTH // 2, HEIGHT // 2 - 40, RED)
+    pygame.display.update()
+    pygame.time.wait(1500)  # Pause for 1.5 seconds
